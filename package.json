@@ -10,7 +10,7 @@
     "react-router-dom": "^6.14.1"
   },
   "devDependencies": {
-    "flow-bin": "^0.159.1"
+    "flow-bin": "0.159.0"
   },
   "scripts": {
     "start": "react-scripts start",
