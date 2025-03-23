@@ -49,13 +49,13 @@ function App(): React$Node {
     <div className={darkMode ? 'App dark-mode' : 'App'}>
       <header className="navbar" style={{ padding: '1rem', borderBottom: '1px solid #444' }}>
         <nav style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-          <button onClick={handleDarkToggle}>
+          <button className="btn" onClick={handleDarkToggle}>
             {darkMode ? 'Light' : 'Dark'}
           </button>
           {session ? (
-            <button onClick={handleLogout}>Log Out</button>
+            <button className="btn" onClick={handleLogout}>Log Out</button>
           ) : (
-            <button onClick={() => alert('No login flow in single-page mode!')}>Log In</button>
+            <button className="btn" onClick={() => alert('No login flow in single-page mode!')}>Log In</button>
           )}
           <label style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginLeft: 'auto' }}>
             Edit Mode:
