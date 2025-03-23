@@ -50,7 +50,7 @@ function App(): React$Node {
             <Route path="/edit/:id" element={<RecipeForm />} />
             <Route path="/new" element={<RecipeForm />} />
             <Route path="/all-ingredients" element={<AllIngredients />} />
-            <Route path="/iteration" element={<RecipeIteration />} />
+            <Route path="/iteration" element={<RecipeIteration editMode={editMode} />} />
           </Routes>
         </main>
       </div>
