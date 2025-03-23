@@ -2,16 +2,10 @@
 import React, { useState, useEffect } from 'react';
 import { supabase } from './supabaseClient';
 import RecipeIteration from './components/RecipeIteration';
-import './index.css';
 
 function App(): React$Node {
-  const [darkMode, setDarkMode] = useState(false);
   const [editMode, setEditMode] = useState(false);
   const [session, setSession] = useState(null);
-
-  const handleDarkToggle = () => {
-    setDarkMode((prev) => !prev);
-  };
 
   const handleEditToggle = (e) => {
     setEditMode(e.target.checked);
@@ -45,35 +39,30 @@ function App(): React$Node {
   }, []);
 
   return (
-    <>
-      <div className={`App ${darkMode ? 'dark-mode' : 'light-mode'}`}>
-        <header className="navbar">
-          <nav>
-            <button className="btn" onClick={handleDarkToggle}>
-              {darkMode ? 'Light' : 'Dark'}
+    <div>
+      <header>
+        <nav>
+          {session ? (
+            <button onClick={handleLogout}>Log Out</button>
+          ) : (
+            <button onClick={() => alert('No login flow in single-page mode!')}>
+              Log In
             </button>
-            {session ? (
-              <button className="btn" onClick={handleLogout}>Log Out</button>
-            ) : (
-              <button className="btn" onClick={() => alert('No login flow in single-page mode!')}>
-                Log In
-              </button>
-            )}
-            <label className="edit-mode-label">
-              Edit Mode:
-              <input
-                type="checkbox"
-                checked={editMode}
-                onChange={handleEditToggle}
-              />
-            </label>
-          </nav>
-        </header>
-        <main className="main">
-          <RecipeIteration editMode={editMode} />
-        </main>
-      </div>
-    </>
+          )}
+          <label>
+            Edit Mode:
+            <input
+              type="checkbox"
+              checked={editMode}
+              onChange={handleEditToggle}
+            />
+          </label>
+        </nav>
+      </header>
+      <main>
+        <RecipeIteration editMode={editMode} />
+      </main>
+    </div>
   );
 }
 
