@@ -7,8 +7,8 @@ const RecipeForm = (): React$Node => {
   const { id } = useParams();
   const navigate = useNavigate();
   const isEditing = Boolean(id);
-  const [title, setTitle] = useState('');
-  const [description, setDescription] = useState('');
+  const [name, setName] = useState('');
+  const [textVal, setTextVal] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -23,8 +23,8 @@ const RecipeForm = (): React$Node => {
         if (error) {
           setError(error.message);
         } else {
-          setTitle(data.title);
-          setDescription(data.description);
+          setName(data.name ?? '');
+          setTextVal(data.text ?? '');
         }
       };
       fetchRecipe();
@@ -39,14 +39,14 @@ const RecipeForm = (): React$Node => {
       if (isEditing) {
         const { error } = await supabase
           .from('All_Recipes')
-          .update({ title, description })
+          .update({ name, text: textVal })
           .eq('id', id);
         if (error) throw error;
         alert('Recipe updated successfully!');
       } else {
         const { error } = await supabase
           .from('All_Recipes')
-          .insert([{ title, description }]);
+          .insert([{ name, text: textVal }]);
         if (error) throw error;
         alert('Recipe added successfully!');
       }
@@ -63,26 +63,26 @@ const RecipeForm = (): React$Node => {
       <h2>{isEditing ? 'Edit Recipe' : 'Add Recipe'}</h2>
       <form onSubmit={handleSubmit}>
         <div>
-          <label htmlFor="title">Title:</label>
+          <label htmlFor="name">Name:</label>
           <input
-            id="title"
+            id="name"
             type="text"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
+            value={name}
+            onChange={(e) => setName(e.target.value)}
             required
           />
         </div>
         <div>
-          <label htmlFor="description">Description:</label>
+          <label htmlFor="textVal">Text:</label>
           <textarea
-            id="description"
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
+            id="textVal"
+            value={textVal}
+            onChange={(e) => setTextVal(e.target.value)}
             required
           />
         </div>
         <button type="submit" disabled={loading}>
-          {loading ? 'Saving...' : (isEditing ? 'Update Recipe' : 'Add Recipe')}
+          {loading ? 'Saving...' : isEditing ? 'Update Recipe' : 'Add Recipe'}
         </button>
         {error && <p style={{ color: 'red' }}>{error}</p>}
       </form>
