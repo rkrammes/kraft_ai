@@ -46,8 +46,8 @@ const RecipeDetail = (): React$Node => {
 
   return (
     <div>
-      <h2>{recipe.title}</h2>
-      <p>{recipe.description}</p>
+      <h2>{recipe.name}</h2>
+      <p>{recipe.text}</p>
       <Link to={`/edit/${recipe.id}`}>Edit</Link> |{' '}
       <button onClick={handleDelete}>Delete</button>
       <br />
