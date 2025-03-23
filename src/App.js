@@ -5,6 +5,7 @@ import RecipeList from './components/RecipeList';
 import RecipeDetail from './components/RecipeDetail';
 import RecipeForm from './components/RecipeForm';
 import AllIngredients from './components/AllIngredients';
+import RecipeIteration from './components/RecipeIteration';
 import './index.css';
 
 function App(): React$Node {
@@ -32,6 +33,7 @@ function App(): React$Node {
             <Route path="/edit/:id" element={<RecipeForm />} />
             <Route path="/new" element={<RecipeForm />} />
             <Route path="/all-ingredients" element={<AllIngredients />} />
+            <Route path="/iteration" element={<RecipeIteration />} />
           </Routes>
         </main>
       </div>
