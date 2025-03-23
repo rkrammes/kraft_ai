@@ -16,7 +16,7 @@ const RecipeForm = (): React$Node => {
     if (isEditing) {
       const fetchRecipe = async () => {
         const { data, error } = await supabase
-          .from('recipes')
+          .from('All_Recipes')
           .select('*')
           .eq('id', id)
           .single();
@@ -38,14 +38,14 @@ const RecipeForm = (): React$Node => {
     try {
       if (isEditing) {
         const { error } = await supabase
-          .from('recipes')
+          .from('All_Recipes')
           .update({ title, description })
           .eq('id', id);
         if (error) throw error;
         alert('Recipe updated successfully!');
       } else {
         const { error } = await supabase
-          .from('recipes')
+          .from('All_Recipes')
           .insert([{ title, description }]);
         if (error) throw error;
         alert('Recipe added successfully!');
