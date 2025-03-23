@@ -20,6 +20,7 @@ function App(): React$Node {
           <Routes>
             <Route path="/" element={<RecipeList />} />
             <Route path="/recipe/:id" element={<RecipeDetail />} />
+            <Route path="/edit/:id" element={<RecipeForm />} />
             <Route path="/new" element={<RecipeForm />} />
           </Routes>
         </main>
