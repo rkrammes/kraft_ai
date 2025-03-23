@@ -1,22 +1,27 @@
-// @flow
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { supabase } from '../supabaseClient';
 
-const RecipeList = (): React$Node => {
-  const [recipes, setRecipes] = useState([]);
-  const [loading, setLoading] = useState(true);
+// Define a recipe interface for supabase data
+interface Recipe {
+  id: string;
+  name: string;
+  [key: string]: any; // or add more typed fields if you know them
+}
+
+const RecipeList: React.FC = () => {
+  const [recipes, setRecipes] = useState<Recipe[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
   const fetchRecipes = async () => {
     setLoading(true);
-    const { data, error } = await supabase
-      .from('All_Recipes')
-      .select('*');
+    const { data, error } = await supabase.from('All_Recipes').select('*');
     if (error) {
       setError(error.message);
     } else {
-      setRecipes(data);
+      // if data is null or undefined, default to []
+      setRecipes(data || []);
     }
     setLoading(false);
   };
