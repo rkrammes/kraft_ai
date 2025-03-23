@@ -1,10 +1,107 @@
 /* index.css */
+/* Dark theme to replicate old UI look from the screenshot */
+
 body {
     margin: 0;
     font-family: sans-serif;
-    background-color: #f2f2f2;
+    background-color: #1b1b1b;
+    color: #e0e0e0;
   }
   
+  /* Basic app container styling */
   .App {
     text-align: center;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  /* Header / Navigation */
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #222;
+    padding: 10px;
+    border-bottom: 1px solid #333;
+  }
+  
+  header h1 {
+    margin: 0;
+  }
+  
+  nav a {
+    color: #eee;
+    text-decoration: none;
+    margin-right: 1rem;
+  }
+  
+  nav a:hover {
+    color: #fff;
+  }
+  
+  /* Main Content Layout */
+  main {
+    flex: 1;
+    padding: 1rem;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  
+  /* Generic Card Layout for UI sections */
+  .card {
+    background-color: #2a2a2a;
+    border: 1px solid #444;
+    border-radius: 5px;
+    margin: 1rem;
+    padding: 1rem;
+    min-width: 280px;
+    max-width: 400px;
+    text-align: left;
+  }
+  
+  /* Buttons and Links */
+  button,
+  input[type='submit'] {
+    background-color: #444;
+    color: #e0e0e0;
+    border: 1px solid #555;
+    border-radius: 4px;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+  }
+  
+  button:hover,
+  input[type='submit']:hover {
+    background-color: #555;
+  }
+  
+  /* Forms and Inputs */
+  form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  label {
+    margin: 0.5rem 0 0.25rem;
+  }
+  
+  input[type='text'],
+  textarea {
+    background-color: #333;
+    border: 1px solid #444;
+    border-radius: 4px;
+    color: #fff;
+    padding: 0.5rem;
+    margin-bottom: 1rem;
+  }
+  
+  /* Links in Body Text */
+  a {
+    color: #b3b3b3;
+  }
+  
+  a:hover {
+    color: #fff;
   }
