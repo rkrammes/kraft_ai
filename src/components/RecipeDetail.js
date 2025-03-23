@@ -13,7 +13,7 @@ const RecipeDetail = (): React$Node => {
   useEffect(() => {
     const fetchRecipe = async () => {
       const { data, error } = await supabase
-        .from('recipes')
+        .from('All_Recipes')
         .select('*')
         .eq('id', id)
         .single();
@@ -29,7 +29,7 @@ const RecipeDetail = (): React$Node => {
 
   const handleDelete = async () => {
     const { error } = await supabase
-      .from('recipes')
+      .from('All_Recipes')
       .delete()
       .eq('id', id);
     if (error) {
