@@ -11,7 +11,7 @@ const RecipeList = (): React$Node => {
   const fetchRecipes = async () => {
     setLoading(true);
     const { data, error } = await supabase
-      .from('recipes')
+      .from('All_Recipes')
       .select('*');
     if (error) {
       setError(error.message);
@@ -27,7 +27,7 @@ const RecipeList = (): React$Node => {
 
   const handleDelete = async (id: string) => {
     const { error } = await supabase
-      .from('recipes')
+      .from('All_Recipes')
       .delete()
       .eq('id', id);
     if (error) {
