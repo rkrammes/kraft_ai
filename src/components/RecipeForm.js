@@ -1,26 +1,56 @@
 // @flow
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
 import { supabase } from '../supabaseClient';
 
 const RecipeForm = (): React$Node => {
+  const { id } = useParams();
+  const navigate = useNavigate();
+  const isEditing = Boolean(id);
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (isEditing) {
+      const fetchRecipe = async () => {
+        const { data, error } = await supabase
+          .from('recipes')
+          .select('*')
+          .eq('id', id)
+          .single();
+        if (error) {
+          setError(error.message);
+        } else {
+          setTitle(data.title);
+          setDescription(data.description);
+        }
+      };
+      fetchRecipe();
+    }
+  }, [id, isEditing]);
 
   const handleSubmit = async (e: SyntheticEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoading(true);
     setError(null);
     try {
-      const { error } = await supabase
-        .from('recipes')
-        .insert([{ title, description }]);
-      if (error) throw error;
-      // Reset form on success
-      setTitle('');
-      setDescription('');
-      alert('Recipe added successfully!');
+      if (isEditing) {
+        const { error } = await supabase
+          .from('recipes')
+          .update({ title, description })
+          .eq('id', id);
+        if (error) throw error;
+        alert('Recipe updated successfully!');
+      } else {
+        const { error } = await supabase
+          .from('recipes')
+          .insert([{ title, description }]);
+        if (error) throw error;
+        alert('Recipe added successfully!');
+      }
+      navigate('/');
     } catch (err) {
       setError(err.message);
     } finally {
@@ -30,7 +60,7 @@ const RecipeForm = (): React$Node => {
 
   return (
     <div>
-      <h2>Add Recipe</h2>
+      <h2>{isEditing ? 'Edit Recipe' : 'Add Recipe'}</h2>
       <form onSubmit={handleSubmit}>
         <div>
           <label htmlFor="title">Title:</label>
@@ -52,7 +82,7 @@ const RecipeForm = (): React$Node => {
           />
         </div>
         <button type="submit" disabled={loading}>
-          {loading ? 'Saving...' : 'Add Recipe'}
+          {loading ? 'Saving...' : (isEditing ? 'Update Recipe' : 'Add Recipe')}
         </button>
         {error && <p style={{ color: 'red' }}>{error}</p>}
       </form>
