@@ -1,17 +1,17 @@
-// @flow
 import React, { useState } from 'react';
 import ReactDOM from 'react-dom/client';
 import { ThemeProvider } from 'styled-components';
 import { darkTheme, lightTheme } from './theme';
 import App from './App';
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+const container = document.getElementById('root');
+if (!container) {
+  throw new Error('Root container not found');
+}
+const root = ReactDOM.createRoot(container);
 
-function Root() {
-  // handle local darkMode state here, pass it to <App>
+function Root(): JSX.Element {
   const [darkMode, setDarkMode] = useState(false);
-
-  // pick which theme tokens to use
   const theme = darkMode ? darkTheme : lightTheme;
 
   return (
