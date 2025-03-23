@@ -1,28 +1,22 @@
-function App(): React$Node {
-  const [darkMode, setDarkMode] = useState(false);
-  const [editMode, setEditMode] = useState(false);
-  const [session, setSession] = useState(null);
-
-  ... // existing code
-
-  return (
-    <>
-      {/* Switch between 'dark-mode' and 'light-mode' classes */}
-      <div className={`App ${darkMode ? 'dark-mode' : 'light-mode'}`}>
-        <header className="navbar" style={{ padding: '1rem', borderBottom: '1px solid #444' }}>
-          <nav style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-            <button className="btn" onClick={handleDarkToggle}>
-              {darkMode ? 'Light' : 'Dark'}
-            </button>
-            ...
-          </nav>
-        </header>
-        <main style={{ padding: '1rem' }}>
-          <RecipeIteration editMode={editMode} />
-        </main>
-      </div>
-    </>
-  );
+/* CSS styles for the application */
+.App {
+  /* styles for the App component */
 }
 
-export default App;
+.dark-mode {
+  /* styles for dark mode */
+}
+
+.light-mode {
+  /* styles for light mode */
+}
+
+.navbar {
+  /* styles for the navbar */
+}
+
+.btn {
+  /* styles for buttons */
+}
+
+/* Add more CSS styles as needed */
