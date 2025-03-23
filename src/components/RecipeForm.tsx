@@ -1,9 +1,8 @@
-// @flow
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { supabase } from '../supabaseClient';
 
-const RecipeForm = (): React$Node => {
+const RecipeForm = (): React.ReactNode => {
   const { id } = useParams();
   const navigate = useNavigate();
   const isEditing = Boolean(id);
@@ -31,7 +30,7 @@ const RecipeForm = (): React$Node => {
     }
   }, [id, isEditing]);
 
-  const handleSubmit = async (e: SyntheticEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.SyntheticEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoading(true);
     setError(null);
@@ -52,7 +51,11 @@ const RecipeForm = (): React$Node => {
       }
       navigate('/');
     } catch (err) {
-      setError(err.message);
+      if (err instanceof Error) {
+        setError(err.message);
+      } else {
+        setError('An unknown error occurred');
+      }
     } finally {
       setLoading(false);
     }
