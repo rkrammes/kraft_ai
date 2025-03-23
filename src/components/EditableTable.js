@@ -1,5 +1,3 @@
-
-
 // @flow
 import React, { useState, useEffect } from 'react';
 import { supabase } from '../supabaseClient';
@@ -12,7 +10,7 @@ type TableRow = {
   notes: string,
 };
 
-function EditableTable(): React$Node {
+function EditableTable({ editMode }: { editMode: boolean }): React$Node {
   const [rows, setRows] = useState<TableRow[]>([]);
   
   // Fetch data from Supabase on mount
@@ -40,6 +38,9 @@ function EditableTable(): React$Node {
   }, []);
 
   const handleInputChange = (id: number, field: string, value: string) => {
+    // If editMode is false, skip updates
+    if (!editMode) return;
+
     setRows((prev) =>
       prev.map((row) =>
         row.id === id ? { ...row, [field]: value } : row
@@ -58,6 +59,9 @@ function EditableTable(): React$Node {
   };
 
   const handleAddRow = async () => {
+    // If editMode is false, skip adding new rows
+    if (!editMode) return;
+
     // Insert a new row in Supabase
     const { data, error } = await supabase
       .from('Ingredients')
@@ -81,7 +85,9 @@ function EditableTable(): React$Node {
   };
 
   const handleDeleteRow = async (id: number) => {
-    // Delete from Supabase
+    // If editMode is false, skip deletions
+    if (!editMode) return;
+
     const { error } = await supabase
       .from('Ingredients')
       .delete()
@@ -113,6 +119,7 @@ function EditableTable(): React$Node {
                 <input
                   type="text"
                   value={row.ingredient}
+                  disabled={!editMode}
                   onChange={(e) =>
                     handleInputChange(row.id, 'ingredient', e.target.value)
                   }
@@ -122,6 +129,7 @@ function EditableTable(): React$Node {
                 <input
                   type="text"
                   value={row.quantity}
+                  disabled={!editMode}
                   onChange={(e) =>
                     handleInputChange(row.id, 'quantity', e.target.value)
                   }
@@ -131,6 +139,7 @@ function EditableTable(): React$Node {
                 <input
                   type="text"
                   value={row.unit}
+                  disabled={!editMode}
                   onChange={(e) =>
                     handleInputChange(row.id, 'unit', e.target.value)
                   }
@@ -140,6 +149,7 @@ function EditableTable(): React$Node {
                 <input
                   type="text"
                   value={row.notes}
+                  disabled={!editMode}
                   onChange={(e) =>
                     handleInputChange(row.id, 'notes', e.target.value)
                   }
