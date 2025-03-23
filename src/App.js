@@ -10,6 +10,7 @@ function App(): React$Node {
   const [session, setSession] = useState(null);
 
   const handleDarkToggle = () => {
+    // Toggle darkMode state
     setDarkMode((prev) => !prev);
   };
 
@@ -46,7 +47,8 @@ function App(): React$Node {
   }, []);
 
   return (
-    <div className={darkMode ? 'App dark-mode' : 'App'}>
+    {/* Switch between 'dark-mode' and 'light-mode' classes */}
+    <div className={`App ${darkMode ? 'dark-mode' : 'light-mode'}`}>
       <header className="navbar" style={{ padding: '1rem', borderBottom: '1px solid #444' }}>
         <nav style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
           <button className="btn" onClick={handleDarkToggle}>
