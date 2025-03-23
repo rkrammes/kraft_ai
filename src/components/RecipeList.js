@@ -49,7 +49,7 @@ const RecipeList = (): React$Node => {
         <ul>
           {recipes.map((recipe) => (
             <li key={recipe.id}>
-              <strong>{recipe.title}</strong> –{' '}
+              <strong>{recipe.name}</strong> –{' '}
               <Link to={`/recipe/${recipe.id}`}>View</Link> |{' '}
               <Link to={`/edit/${recipe.id}`}>Edit</Link> |{' '}
               <button onClick={() => handleDelete(recipe.id)}>Delete</button>
