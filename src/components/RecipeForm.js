@@ -13,7 +13,7 @@ const RecipeForm = (): React$Node => {
     setLoading(true);
     setError(null);
     try {
-      const { data, error } = await supabase
+      const { error } = await supabase
         .from('recipes')
         .insert([{ title, description }]);
       if (error) throw error;
