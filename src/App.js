@@ -10,7 +10,6 @@ function App(): React$Node {
   const [session, setSession] = useState(null);
 
   const handleDarkToggle = () => {
-    // Toggle darkMode state
     setDarkMode((prev) => !prev);
   };
 
@@ -35,7 +34,6 @@ function App(): React$Node {
     supabase.auth.getSession().then(({ data: { session } }) => {
       setSession(session);
     });
-
     const { data: authListener } = supabase.auth.onAuthStateChange(
       (event, session) => {
         setSession(session);
@@ -48,19 +46,20 @@ function App(): React$Node {
 
   return (
     <>
-      {/* Switch between 'dark-mode' and 'light-mode' classes */}
       <div className={`App ${darkMode ? 'dark-mode' : 'light-mode'}`}>
-        <header className="navbar" style={{ padding: '1rem', borderBottom: '1px solid #444' }}>
-          <nav style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+        <header className="navbar">
+          <nav>
             <button className="btn" onClick={handleDarkToggle}>
               {darkMode ? 'Light' : 'Dark'}
             </button>
             {session ? (
               <button className="btn" onClick={handleLogout}>Log Out</button>
             ) : (
-              <button className="btn" onClick={() => alert('No login flow in single-page mode!')}>Log In</button>
+              <button className="btn" onClick={() => alert('No login flow in single-page mode!')}>
+                Log In
+              </button>
             )}
-            <label style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginLeft: 'auto' }}>
+            <label className="edit-mode-label">
               Edit Mode:
               <input
                 type="checkbox"
@@ -70,7 +69,7 @@ function App(): React$Node {
             </label>
           </nav>
         </header>
-        <main style={{ padding: '1rem' }}>
+        <main className="main">
           <RecipeIteration editMode={editMode} />
         </main>
       </div>
