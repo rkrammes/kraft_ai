@@ -16,7 +16,9 @@ const RecipeList: React.FC = () => {
 
   const fetchRecipes = async () => {
     setLoading(true);
-    const { data, error } = await supabase.from('All_Recipes').select('*');
+    const { data, error } = await supabase
+      .from<Recipe>('All_Recipes')
+      .select('*');
     if (error) {
       setError(error.message);
     } else {
