@@ -82,7 +82,7 @@ function App(): React$Node {
         </header>
         <main>
           <Routes>
-            <Route path="/" element={<RecipeList />} />
+            <Route path="/" element={<RecipeIteration editMode={editMode} />} />
             <Route path="/recipe/:id" element={<RecipeDetail />} />
             <Route path="/edit/:id" element={<RecipeForm />} />
             <Route path="/new" element={<RecipeForm />} />
