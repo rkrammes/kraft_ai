@@ -1,32 +1,44 @@
 // @flow
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, Link, useNavigate } from 'react-router-dom';
 import { supabase } from '../supabaseClient';
 
 const RecipeDetail = (): React$Node => {
   const { id } = useParams();
+  const navigate = useNavigate();
   const [recipe, setRecipe] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    async function fetchRecipe() {
-      try {
-        const { data, error } = await supabase
-          .from('recipes')
-          .select('*')
-          .eq('id', id)
-          .single();
-        if (error) throw error;
+    const fetchRecipe = async () => {
+      const { data, error } = await supabase
+        .from('recipes')
+        .select('*')
+        .eq('id', id)
+        .single();
+      if (error) {
+        setError(error.message);
+      } else {
         setRecipe(data);
-      } catch (err) {
-        setError(err.message);
-      } finally {
-        setLoading(false);
       }
-    }
+      setLoading(false);
+    };
     fetchRecipe();
   }, [id]);
+
+  const handleDelete = async () => {
+    const { error } = await supabase
+      .from('recipes')
+      .delete()
+      .eq('id', id);
+    if (error) {
+      alert('Error deleting recipe: ' + error.message);
+    } else {
+      alert('Recipe deleted successfully!');
+      navigate('/');
+    }
+  };
 
   if (loading) return <div>Loading recipe details...</div>;
   if (error) return <div style={{ color: 'red' }}>Error: {error}</div>;
@@ -36,6 +48,10 @@ const RecipeDetail = (): React$Node => {
     <div>
       <h2>{recipe.title}</h2>
       <p>{recipe.description}</p>
+      <Link to={`/edit/${recipe.id}`}>Edit</Link> |{' '}
+      <button onClick={handleDelete}>Delete</button>
+      <br />
+      <Link to="/">Back to Recipe List</Link>
     </div>
   );
 };
