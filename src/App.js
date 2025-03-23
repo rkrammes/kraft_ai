@@ -10,10 +10,18 @@ function App(): React$Node {
   return (
     <Router>
       <div className="App">
-        <header>
-          <h1>Kraft AI Recipe App</h1>
-          <nav>
-            <Link to="/">Home</Link> | <Link to="/new">Add Recipe</Link>
+        <header className="navbar">
+          <nav style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+            <Link to="/all-ingredients">All Ingredients</Link>
+            <Link to="/new">Add New Recipe</Link>
+            <div style={{ marginLeft: 'auto', display: 'flex', gap: '1rem' }}>
+              <button>Dark</button>
+              <button>Log Out</button>
+              <label style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                Edit Mode:
+                <input type="checkbox" />
+              </label>
+            </div>
           </nav>
         </header>
         <main>
