@@ -1,8 +1,26 @@
 // @flow
-import React from 'react';
+import React, { useState } from 'react';
 import EditableTable from './EditableTable';
 
 function RecipeIteration(): React$Node {
+  const [iterationText, setIterationText] = useState('');
+
+  const handleGetAiSuggestion = async () => {
+    try {
+      // Replace this placeholder URL with your actual AI endpoint
+      const response = await fetch('https://example.com/ai-suggest', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ prompt: iterationText }),
+      });
+      const data = await response.json();
+      // Adjust based on your API response structure
+      setIterationText(data.suggestion || '');
+    } catch (err) {
+      console.error('Error fetching AI suggestion:', err);
+    }
+  };
+
   return (
     <>
       <div className="card">
@@ -15,12 +33,15 @@ function RecipeIteration(): React$Node {
       <div className="card" style={{ marginTop: '1rem' }}>
         <h2>Next Iteration</h2>
         <textarea
+          value={iterationText}
+          onChange={(e) => setIterationText(e.target.value)}
           placeholder="Describe your next iteration..."
           style={{ width: '100%', minHeight: '80px', marginBottom: '0.5rem' }}
         />
-        <button style={{ display: 'block' }}>
-          Commit
-        </button>
+        <div style={{ display: 'flex', gap: '0.5rem' }}>
+          <button onClick={handleGetAiSuggestion}>Get AI Suggestion</button>
+          <button>Commit</button>
+        </div>
       </div>
       <EditableTable />
     </>
