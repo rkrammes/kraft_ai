@@ -153,4 +153,16 @@ body {
     padding: 0.5rem;
   }
   
+  /* Light Mode class to switch from dark theme */
+  .light-mode {
+    background-color: #f7f7f7;
+    color: #222;
+  }
+
+  /* If you prefer .App.light-mode, adapt accordingly */
+  .App.light-mode {
+    background-color: #f7f7f7;
+    color: #222;
+  }
+
   /* Possibly more classes from the old style.css, such as transitions, nav styling, etc. */
