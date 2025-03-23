@@ -10,6 +10,16 @@ function RecipeIteration(): React$Node {
       <p>Sweet Almond Oil – 1 teaspoon (5 mL)</p>
       <p>Essential Oils – 10–15 drops</p>
     </div>
+    <div className="card" style={{ marginTop: '1rem' }}>
+      <h2>Next Iteration</h2>
+      <textarea
+        placeholder="Describe your next iteration..."
+        style={{ width: '100%', minHeight: '80px', marginBottom: '0.5rem' }}
+      />
+      <button style={{ display: 'block' }}>
+        Commit
+      </button>
+    </div>
   );
 }
 
