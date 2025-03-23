@@ -1,43 +1,112 @@
-/* CSS styles for the application */
-.App {
-  /* styles for the App component */
+/* === Root Variables & Font Import (Adjust as Desired) === */
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&display=swap');
+:root {
+  --primary: #1a1a1a;  /* dark background */
+  --secondary: #2c2c2c;
+  --accent-blue: #3498db;
+  --accent-orange: #ff9900;
+  --text: #ffffff;
+  --muted-text: #bdbdbd;
+  --font-family: 'Roboto Mono', monospace;
+  --base-font-size: 16px;
+  --line-height: 1.5;
+  --max-width: 1200px;
+  --gutter: 24px;
+  --spacing-small: 8px;
+  --spacing-medium: 16px;
+  --spacing-large: 32px;
+  --icon-size: 24px;
 }
 
-.light-mode {
-  /* styles for light mode */
+/* Basic Reset & Base Styles */
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+html {
+  font-size: var(--base-font-size);
+  scroll-behavior: smooth;
+}
+body {
+  font-family: var(--font-family);
+  line-height: var(--line-height);
+  background-color: var(--primary);
+  color: var(--text);
+  margin: 0 auto;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-.navbar {
-  /* styles for the navbar */
-}
-
-/* Add more CSS styles as needed */
-
-/* === Force Old Dark Mode & Gradient Button Overrides === */
+/* Single .dark-mode & .light-mode */
 .dark-mode {
-  background-color: #1b1b1b !important;
-  color: #e0e0e0 !important;
-  transition: background-color 0.3s ease, color 0.3s ease !important;
+  background-color: #1b1b1b;
+  color: #e0e0e0;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+.light-mode {
+  background-color: #f7f7f7;
+  color: #222;
 }
 
+/* .App layout */
+.App {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+.navbar {
+  /* your top nav styling */
+}
+main {
+  flex: 1;
+  padding: 1rem;
+}
+
+/* .btn gradient styling */
 .btn {
-  display: inline-block !important;
-  padding: 12px 24px !important;
-  background-color: #2c2c2c !important;
-  color: #2c2c2c !important;
-  border: none !important;
-  border-radius: 4px !important;
-  cursor: pointer !important;
-  font-size: 1em !important;
-  font-family: var(--font-family, sans-serif) !important;
-  background: linear-gradient(45deg, rgba(52,152,219,0.8), rgba(255,153,0,0.8)) !important;
-  -webkit-background-clip: text !important;
-  -webkit-text-fill-color: transparent !important;
-  transition: background 0.3s ease !important;
-  margin: 8px 0 !important;
+  display: inline-block;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1em;
+  font-family: var(--font-family);
+  background: linear-gradient(45deg, rgba(52,152,219,0.8), rgba(255,153,0,0.8));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  transition: background 0.3s ease;
+  margin: 8px 0;
 }
 .btn:hover {
-  background: linear-gradient(45deg, rgba(52,152,219,1), rgba(255,153,0,1)) !important;
-  -webkit-background-clip: text !important;
-  -webkit-text-fill-color: transparent !important;
+  background: linear-gradient(45deg, rgba(52,152,219,1), rgba(255,153,0,1));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Additional classes if needed: .card, .panel-container, .category-row, etc. */
+.card {
+  background-color: var(--secondary);
+  border: 1px solid #444;
+  border-radius: 5px;
+  margin: var(--spacing-small) 0;
+  padding: var(--spacing-medium);
+  transition: box-shadow 0.3s ease;
+}
+.card:hover {
+  box-shadow: 0 0 8px rgba(255, 255, 255, 0.1);
+}
+.panel-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-medium);
+  margin-bottom: var(--spacing-medium);
+}
+.category-row {
+  display: flex;
+  gap: var(--spacing-small);
+  margin-bottom: var(--spacing-medium);
+  flex-wrap: wrap;
 }
