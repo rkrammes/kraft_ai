@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import RecipeList from './components/RecipeList';
 import RecipeDetail from './components/RecipeDetail';
 import RecipeForm from './components/RecipeForm';
+import AllIngredients from './components/AllIngredients';
 import './index.css';
 
 function App(): React$Node {
@@ -30,6 +31,7 @@ function App(): React$Node {
             <Route path="/recipe/:id" element={<RecipeDetail />} />
             <Route path="/edit/:id" element={<RecipeForm />} />
             <Route path="/new" element={<RecipeForm />} />
+            <Route path="/all-ingredients" element={<AllIngredients />} />
           </Routes>
         </main>
       </div>
