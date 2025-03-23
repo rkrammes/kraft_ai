@@ -1,96 +1,41 @@
-import React, { useState, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
 import { supabase } from '../supabaseClient';
+import { Recipe } from '../types';
 
-const RecipeForm = (): React.ReactNode => {
-  const { id } = useParams();
-  const navigate = useNavigate();
-  const isEditing = Boolean(id);
-  const [name, setName] = useState('');
-  const [textVal, setTextVal] = useState('');
-  const [loading, setLoading] = useState(false);
+const RecipeList = (): React.ReactNode => {
+  const [recipes, setRecipes] = useState<Recipe[]>([]);
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    if (isEditing) {
-      const fetchRecipe = async () => {
-        const { data, error } = await supabase
-          .from('All_Recipes')
-          .select('*')
-          .eq('id', id)
-          .single();
-        if (error) {
-          setError(error.message);
-        } else {
-          setName(data.name ?? '');
-          setTextVal(data.text ?? '');
-        }
-      };
-      fetchRecipe();
-    }
-  }, [id, isEditing]);
-
-  const handleSubmit = async (e: React.SyntheticEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    setLoading(true);
-    setError(null);
-    try {
-      if (isEditing) {
-        const { error } = await supabase
-          .from('All_Recipes')
-          .update({ name, text: textVal })
-          .eq('id', id);
-        if (error) throw error;
-        alert('Recipe updated successfully!');
+    const fetchRecipes = async () => {
+      const { data, error } = await supabase
+        .from<Recipe, Recipe>('All_Recipes')
+        .select('*');
+      if (error) {
+        setError(error.message);
       } else {
-        const { error } = await supabase
-          .from('All_Recipes')
-          .insert([{ name, text: textVal }]);
-        if (error) throw error;
-        alert('Recipe added successfully!');
+        setRecipes(data);
       }
-      navigate('/');
-    } catch (err) {
-      if (err instanceof Error) {
-        setError(err.message);
-      } else {
-        setError('An unknown error occurred');
-      }
-    } finally {
       setLoading(false);
-    }
-  };
+    };
+
+    fetchRecipes();
+  }, []);
+
+  if (loading) return <div>Loading...</div>;
+  if (error) return <div style={{ color: 'red' }}>{error}</div>;
 
   return (
     <div>
-      <h2>{isEditing ? 'Edit Recipe' : 'Add Recipe'}</h2>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label htmlFor="name">Name:</label>
-          <input
-            id="name"
-            type="text"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            required
-          />
-        </div>
-        <div>
-          <label htmlFor="textVal">Text:</label>
-          <textarea
-            id="textVal"
-            value={textVal}
-            onChange={(e) => setTextVal(e.target.value)}
-            required
-          />
-        </div>
-        <button type="submit" disabled={loading}>
-          {loading ? 'Saving...' : isEditing ? 'Update Recipe' : 'Add Recipe'}
-        </button>
-        {error && <p style={{ color: 'red' }}>{error}</p>}
-      </form>
+      <h2>Recipe List</h2>
+      <ul>
+        {recipes.map((recipe) => (
+          <li key={recipe.id}>{recipe.name}</li>
+        ))}
+      </ul>
     </div>
   );
 };
 
-export default RecipeForm;
+export default RecipeList;
