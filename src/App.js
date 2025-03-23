@@ -47,32 +47,34 @@ function App(): React$Node {
   }, []);
 
   return (
-    {/* Switch between 'dark-mode' and 'light-mode' classes */}
-    <div className={`App ${darkMode ? 'dark-mode' : 'light-mode'}`}>
-      <header className="navbar" style={{ padding: '1rem', borderBottom: '1px solid #444' }}>
-        <nav style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-          <button className="btn" onClick={handleDarkToggle}>
-            {darkMode ? 'Light' : 'Dark'}
-          </button>
-          {session ? (
-            <button className="btn" onClick={handleLogout}>Log Out</button>
-          ) : (
-            <button className="btn" onClick={() => alert('No login flow in single-page mode!')}>Log In</button>
-          )}
-          <label style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginLeft: 'auto' }}>
-            Edit Mode:
-            <input
-              type="checkbox"
-              checked={editMode}
-              onChange={handleEditToggle}
-            />
-          </label>
-        </nav>
-      </header>
-      <main style={{ padding: '1rem' }}>
-        <RecipeIteration editMode={editMode} />
-      </main>
-    </div>
+    <>
+      {/* Switch between 'dark-mode' and 'light-mode' classes */}
+      <div className={`App ${darkMode ? 'dark-mode' : 'light-mode'}`}>
+        <header className="navbar" style={{ padding: '1rem', borderBottom: '1px solid #444' }}>
+          <nav style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+            <button className="btn" onClick={handleDarkToggle}>
+              {darkMode ? 'Light' : 'Dark'}
+            </button>
+            {session ? (
+              <button className="btn" onClick={handleLogout}>Log Out</button>
+            ) : (
+              <button className="btn" onClick={() => alert('No login flow in single-page mode!')}>Log In</button>
+            )}
+            <label style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginLeft: 'auto' }}>
+              Edit Mode:
+              <input
+                type="checkbox"
+                checked={editMode}
+                onChange={handleEditToggle}
+              />
+            </label>
+          </nav>
+        </header>
+        <main style={{ padding: '1rem' }}>
+          <RecipeIteration editMode={editMode} />
+        </main>
+      </div>
+    </>
   );
 }
 
