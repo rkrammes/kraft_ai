@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import EditableTable from './EditableTable';
 import { supabase } from '../supabaseClient';
 
-function RecipeIteration(): React$Node {
+function RecipeIteration({ editMode }: { editMode: boolean }): React$Node {
   const [iterationText, setIterationText] = useState('');
 
   const handleGetAiSuggestion = async () => {
@@ -62,7 +62,7 @@ function RecipeIteration(): React$Node {
           <button onClick={handleCommit}>Commit</button>
         </div>
       </div>
-      <EditableTable />
+      <EditableTable editMode={editMode} />
     </>
   );
 }
