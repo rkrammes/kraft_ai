@@ -1,5 +1,5 @@
 // @flow
-import React from 'react';
+import React, { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import RecipeList from './components/RecipeList';
 import RecipeDetail from './components/RecipeDetail';
@@ -9,15 +9,23 @@ import RecipeIteration from './components/RecipeIteration';
 import './index.css';
 
 function App(): React$Node {
+  const [darkMode, setDarkMode] = useState(false);
+
+  const handleDarkToggle = () => {
+    setDarkMode((prev) => !prev);
+  };
+
   return (
     <Router>
-      <div className="App">
+      <div className={darkMode ? 'App dark-mode' : 'App'}>
         <header className="navbar">
           <nav style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
             <Link to="/all-ingredients">All Ingredients</Link>
             <Link to="/new">Add New Recipe</Link>
             <div style={{ marginLeft: 'auto', display: 'flex', gap: '1rem' }}>
-              <button>Dark</button>
+              <button onClick={handleDarkToggle}>
+                {darkMode ? 'Light' : 'Dark'}
+              </button>
               <button>Log Out</button>
               <label style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                 Edit Mode:
