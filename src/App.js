@@ -2,7 +2,6 @@
 import React, { useState, useEffect } from 'react';
 import { supabase } from './supabaseClient';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
-import RecipeList from './components/RecipeList';
 import RecipeDetail from './components/RecipeDetail';
 import RecipeForm from './components/RecipeForm';
 import AllIngredients from './components/AllIngredients';
