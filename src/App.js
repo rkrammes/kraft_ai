@@ -10,9 +10,14 @@ import './index.css';
 
 function App(): React$Node {
   const [darkMode, setDarkMode] = useState(false);
+  const [editMode, setEditMode] = useState(false);
 
   const handleDarkToggle = () => {
     setDarkMode((prev) => !prev);
+  };
+
+  const handleEditToggle = (e) => {
+    setEditMode(e.target.checked);
   };
 
   return (
@@ -29,7 +34,11 @@ function App(): React$Node {
               <button>Log Out</button>
               <label style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                 Edit Mode:
-                <input type="checkbox" />
+                <input
+                  type="checkbox"
+                  checked={editMode}
+                  onChange={handleEditToggle}
+                />
               </label>
             </div>
           </nav>
