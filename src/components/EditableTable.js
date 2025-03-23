@@ -1,7 +1,8 @@
 
 
 // @flow
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { supabase } from '../supabaseClient';
 
 type TableRow = {
   id: number,
@@ -12,10 +13,31 @@ type TableRow = {
 };
 
 function EditableTable(): React$Node {
-  const [rows, setRows] = useState<TableRow[]>([
-    { id: 1, ingredient: 'Distilled Water', quantity: '1 cup', unit: '(240 mL)', notes: '' },
-    { id: 2, ingredient: 'Liquid Castile Soap', quantity: '2 tablespoons', unit: '(30 mL)', notes: '' },
-  ]);
+  const [rows, setRows] = useState<TableRow[]>([]);
+  
+  // Fetch data from Supabase on mount
+  useEffect(() => {
+    const fetchIngredients = async () => {
+      const { data, error } = await supabase
+        .from('Ingredients')
+        .select('*')
+        .order('id', { ascending: true });
+      if (error) {
+        console.error('Error fetching ingredients:', error);
+      } else if (data) {
+        // Convert Supabase rows to our TableRow format
+        const mappedRows = data.map((item) => ({
+          id: item.id,
+          ingredient: item.name || '',
+          quantity: item.quantity || '',
+          unit: item.unit || '',
+          notes: item.notes || '',
+        }));
+        setRows(mappedRows);
+      }
+    };
+    fetchIngredients();
+  }, []);
 
   const handleInputChange = (id: number, field: string, value: string) => {
     setRows((prev) =>
@@ -23,18 +45,52 @@ function EditableTable(): React$Node {
         row.id === id ? { ...row, [field]: value } : row
       )
     );
+    // Update Supabase immediately whenever a field changes
+    supabase
+      .from('Ingredients')
+      .update({ [field === 'ingredient' ? 'name' : field]: value })
+      .eq('id', id)
+      .then(({ error }) => {
+        if (error) {
+          console.error('Error updating ingredient:', error);
+        }
+      });
   };
 
-  const handleAddRow = () => {
-    const newId = rows.length ? rows[rows.length - 1].id + 1 : 1;
-    setRows((prev) => [
-      ...prev,
-      { id: newId, ingredient: '', quantity: '', unit: '', notes: '' },
-    ]);
+  const handleAddRow = async () => {
+    // Insert a new row in Supabase
+    const { data, error } = await supabase
+      .from('Ingredients')
+      .insert([{ name: '', quantity: '', unit: '', notes: '' }])
+      .select()
+      .single();
+    if (error) {
+      console.error('Error adding ingredient:', error);
+    } else if (data) {
+      setRows((prev) => [
+        ...prev,
+        {
+          id: data.id,
+          ingredient: data.name,
+          quantity: data.quantity,
+          unit: data.unit,
+          notes: data.notes,
+        },
+      ]);
+    }
   };
 
-  const handleDeleteRow = (id: number) => {
-    setRows((prev) => prev.filter((row) => row.id !== id));
+  const handleDeleteRow = async (id: number) => {
+    // Delete from Supabase
+    const { error } = await supabase
+      .from('Ingredients')
+      .delete()
+      .eq('id', id);
+    if (error) {
+      console.error('Error deleting ingredient:', error);
+    } else {
+      setRows((prev) => prev.filter((row) => row.id !== id));
+    }
   };
 
   return (
