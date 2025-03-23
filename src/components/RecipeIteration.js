@@ -1,6 +1,7 @@
 // @flow
 import React, { useState } from 'react';
 import EditableTable from './EditableTable';
+import { supabase } from '../supabaseClient';
 
 function RecipeIteration(): React$Node {
   const [iterationText, setIterationText] = useState('');
@@ -14,10 +15,28 @@ function RecipeIteration(): React$Node {
         body: JSON.stringify({ prompt: iterationText }),
       });
       const data = await response.json();
-      // Adjust based on your API response structure
       setIterationText(data.suggestion || '');
     } catch (err) {
       console.error('Error fetching AI suggestion:', err);
+    }
+  };
+
+  const handleCommit = async () => {
+    try {
+      // Insert iteration notes into a new Supabase table named 'Iteration_Notes'
+      const { data, error } = await supabase
+        .from('Iteration_Notes')
+        .insert([{ notes: iterationText }])
+        .single();
+      if (error) {
+        console.error('Error saving iteration notes:', error);
+      } else {
+        alert('Iteration notes saved successfully!');
+        // Optionally clear the text area after commit:
+        // setIterationText('');
+      }
+    } catch (err) {
+      console.error('Unexpected error:', err);
     }
   };
 
@@ -40,7 +59,7 @@ function RecipeIteration(): React$Node {
         />
         <div style={{ display: 'flex', gap: '0.5rem' }}>
           <button onClick={handleGetAiSuggestion}>Get AI Suggestion</button>
-          <button>Commit</button>
+          <button onClick={handleCommit}>Commit</button>
         </div>
       </div>
       <EditableTable />
