@@ -10,7 +10,7 @@ const RecipeList = (): React.ReactNode => {
   useEffect(() => {
     const fetchRecipes = async () => {
       const { data, error } = await supabase
-        .from<Recipe, Recipe>('All_Recipes')
+        .from<'All_Recipes', Recipe>('All_Recipes')
         .select('*');
       if (error) {
         setError(error.message);
@@ -31,7 +31,7 @@ const RecipeList = (): React.ReactNode => {
       <h2>Recipe List</h2>
       <ul>
         {recipes.map((recipe) => (
-          <li key={recipe.id}>{recipe.name}</li>
+          <li key={recipe.id}>{recipe.title}</li>
         ))}
       </ul>
     </div>
