@@ -21,21 +21,30 @@ KraftAI is a modern web application built with React, TypeScript, and Supabase. 
 
 ## File Structure
 kraft_ai/
-├── node_modules/
-├── public/
-│   └── index.html
-├── src/
-│   ├── index.tsx         # App entry point
-│   ├── App.tsx           # Main component & routing
-│   ├── theme.ts          # Theming definitions and interfaces
-│   ├── types.ts          # Type declarations (e.g., Recipe)
-│   ├── supabaseClient.ts # Supabase client configuration
-│   └── components/       # Reusable UI components
-│       ├── RecipeList.tsx
-│       └── RecipeForm.tsx
-├── package.json
-├── tsconfig.json
-└── README.md
+├─ node_modules/
+├─ public/
+│  └── index.html
+├─ src/
+│  ├─ AllIngredients.tsx
+│  ├─ EditableTable.tsx
+│  ├─ GradientButton.tsx
+│  ├─ Login.tsx
+│  ├─ NextIteration.tsx
+│  ├─ RecipeDetail.tsx
+│  ├─ RecipeForm.tsx
+│  ├─ RecipeIteration.tsx
+│  ├─ RecipeList.tsx
+│  ├─ secret.tsx
+│  ├─ App.tsx
+│  ├─ index.tsx
+│  ├─ supabaseClient.ts
+│  └─ theme.ts
+├─ LICENSE
+├─ package-lock.json
+├─ package.json
+├─ README.md
+├─ tsconfig.json
+└─ tsconfig.tsbuildinfo
 
 ## Development Workflow
 
