@@ -2,7 +2,11 @@ import React from 'react';
 import styled from 'styled-components';
 import { useTheme } from 'styled-components';
 
-function GradientButton(props) {
+interface GradientButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+  children: React.ReactNode;
+}
+
+function GradientButton(props: GradientButtonProps) {
   const theme = useTheme();
 
   // optional: if you want dynamic gradient in dark vs. light
