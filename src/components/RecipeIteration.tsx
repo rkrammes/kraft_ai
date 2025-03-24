@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import EditableTable from './EditableTable';
 import { supabase } from '../supabaseClient';
 
+const EditableTableComponent = EditableTable as React.FC<{ editMode: boolean }>;
+
 function RecipeIteration({ editMode }: { editMode: boolean }): React.ReactNode {
   // For AI iteration text
   const [iterationText, setIterationText] = useState('');
@@ -21,7 +23,11 @@ function RecipeIteration({ editMode }: { editMode: boolean }): React.ReactNode {
       setIterationText(data.suggestion || '');
     } catch (err) {
       console.error('Error fetching AI suggestion:', err);
-      setMessage(`Error: ${err.message}`);
+      if (err instanceof Error) {
+        setMessage(`Error: ${err.message}`);
+      } else {
+        setMessage('Error: An unexpected error occurred');
+      }
     }
   };
 
@@ -40,12 +46,16 @@ function RecipeIteration({ editMode }: { editMode: boolean }): React.ReactNode {
       }
     } catch (err) {
       console.error('Unexpected error:', err);
-      setMessage(`Error: ${err.message}`);
+      if (err instanceof Error) {
+        setMessage(`Error: ${err.message}`);
+      } else {
+        setMessage('Error: An unexpected error occurred');
+      }
     }
   };
 
   // Category selection logic
-  const handleCategorySelect = (category) => {
+  const handleCategorySelect = (category: string) => {
     setSelectedCategory(category);
     // e.g., fetch a new set of ingredients based on category
   };
@@ -96,7 +106,7 @@ function RecipeIteration({ editMode }: { editMode: boolean }): React.ReactNode {
           {message && <p style={{ color: 'red' }}>{message}</p>}
         </div>
 
-        <EditableTable editMode={editMode} />
+        <EditableTableComponent editMode={editMode} />
       </div>
     </>
   );
