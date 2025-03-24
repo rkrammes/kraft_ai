@@ -22,7 +22,11 @@ function Login(): React.ReactNode {
       }
     } catch (err) {
       console.error('Unexpected error:', err);
-      setMessage(`Error: ${err.message}`);
+      if (err instanceof Error) {
+        setMessage(`Error: ${err.message}`);
+      } else {
+        setMessage('Error: An unexpected error occurred');
+      }
     }
   };
 
