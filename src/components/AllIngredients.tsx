@@ -23,7 +23,11 @@ const AllIngredients = (): React.ReactNode => {
         if (error) throw error;
         setIngredients(data);
       } catch (err) {
-        setError(err.message);
+        if (err instanceof Error) {
+          setError(err.message);
+        } else {
+          setError('Unexpected error occurred');
+        }
       } finally {
         setLoading(false);
       }
