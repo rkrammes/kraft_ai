@@ -46,35 +46,42 @@ kraft_ai/
 ├─ tsconfig.json
 └─ tsconfig.tsbuildinfo
 
-## Development Workflow
+## Optimal Development Workflow (Vibecoding)
 
-1. **Identify & Isolate:**  
-   Examine error messages/logs to pinpoint the problematic file and code snippet.  Check connected apps including VS Code and Terminal.
+The following workflow outlines a highly efficient, AI-driven approach to software development called **"vibecoding"**. This allows the developer to guide and supervise coding tasks, with the AI proactively generating and refining code:
 
-2. **Open & Review:**  
-   Open the file in VS Code, review the code context, and note the problematic snippet.
+### Step 1: **Identify & Isolate**  
+- The AI proactively reviews error messages, logs, or feature requests.
+- It identifies the exact files and code snippets requiring attention.
 
-3. **Propose a Patch:**  
-   Create a detailed review snippet outlining exact modifications (insertions, deletions, or replacements) along with rationale.
+### Step 2: **Open & Review**  
+- The AI opens and analyzes the relevant files.
+- It provides context and clearly explains the issue or needed feature.
 
-4. **Request Confirmation:**  
-   Present the proposed changes for review and wait for explicit confirmation (e.g., “Yes, apply the changes”).
+### Step 3: **Propose a Patch**  
+- The AI independently generates specific, clearly documented code edits.
+- Each edit includes the rationale and expected outcome.
 
-5. **Apply the Patch:**  
-   - **Primary:** Use the `oboe.edit_file` tool to apply the patch automatically.
-   - **Fallback:** If the tool isn’t available, provide complete production-ready content or diff instructions for manual update.
+### Step 4: **Request Editorial Confirmation**  
+- The AI presents the generated changes in a ready-to-review format.
+- The human developer reviews and explicitly confirms or requests further adjustments.
 
-6. **Re-Test & Iterate:**  
-   Re-run or compile the project to verify that the changes resolve the error. Repeat the process for any remaining issues.
+### Step 5: **Apply the Patch**  
+- **Primary:** Once approved, the AI applies or provides ready-to-paste code.
+- **Fallback:** If automated tools are unavailable, the developer manually applies the provided code.
+
+### Step 6: **Re-Test & Iterate**  
+- The AI actively assists in re-testing the code, providing immediate feedback.
+- The cycle repeats iteratively until all issues are resolved and features work optimally.
 
 ## Environment & Security Reminders
 
 - Use environment variables for sensitive data (e.g., Supabase keys) and never commit real keys.
-- Maintain inline code comments reflecting the workflow for clarity.
+- Maintain inline code comments reflecting the vibecoding workflow for clarity and maintainability.
 
 ## Conclusion
 
-This README serves as the project’s blueprint and a guide to our strict, iterative workflow. It ensures that every edit is methodical and reversible, keeping our development process organized and efficient.
+This README serves as the project's blueprint, clearly defining our "vibecoding" approach—leveraging AI to maximize productivity and creativity. It ensures development remains swift, intuitive, and responsive to your editorial direction.
 
 ### References
 
